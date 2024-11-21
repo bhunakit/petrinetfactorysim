@@ -250,7 +250,7 @@ class StochasticProductionSimulation:
         plt.ylabel('Buffer Level')
         plt.title('Buffer Levels Over Time')
         plt.legend()
-        plt.savefig('buffer_levels.png')
+        plt.savefig('graphs/buffer_levels.png')
         plt.close()
 
 def main():
