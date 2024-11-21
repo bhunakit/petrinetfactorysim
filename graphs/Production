@@ -1,0 +1,42 @@
+digraph {
+	production [label="production
+1" fillcolor=yellow fixedsize=true height=1.5 shape=circle style=filled width=1.5]
+	buffer1 [label="buffer1
+0" fillcolor=yellow fixedsize=true height=1.5 shape=circle style=filled width=1.5]
+	buffer2 [label="buffer2
+0" fillcolor=yellow fixedsize=true height=1.5 shape=circle style=filled width=1.5]
+	buffer3 [label="buffer3
+0" fillcolor=yellow fixedsize=true height=1.5 shape=circle style=filled width=1.5]
+	tool [label="tool
+1" fillcolor=yellow fixedsize=true height=1.5 shape=circle style=filled width=1.5]
+	tool_occupied [label="tool_occupied
+0" fillcolor=yellow fixedsize=true height=1.5 shape=circle style=filled width=1.5]
+	robot1 [label="robot1
+1" fillcolor=yellow fixedsize=true height=1.5 shape=circle style=filled width=1.5]
+	robot2 [label="robot2
+1" fillcolor=yellow fixedsize=true height=1.5 shape=circle style=filled width=1.5]
+	produce [shape=rectangle]
+	production -> produce [label=1]
+	produce -> production [label=1]
+	produce -> buffer1 [label=1]
+	work [shape=rectangle]
+	buffer1 -> work [label=1]
+	tool -> work [label=1]
+	work -> tool [label=1]
+	work -> buffer2 [label=1]
+	work -> buffer3 [label=1]
+	process1 [shape=rectangle]
+	buffer2 -> process1 [label=1]
+	robot1 -> process1 [label=1]
+	process1 -> robot1 [label=1]
+	process2 [shape=rectangle]
+	buffer3 -> process2 [label=1]
+	robot2 -> process2 [label=1]
+	process2 -> robot2 [label=1]
+	tool_occupy [shape=rectangle]
+	tool -> tool_occupy [label=1]
+	tool_occupy -> tool_occupied [label=1]
+	tool_release [shape=rectangle]
+	tool_occupied -> tool_release [label=1]
+	tool_release -> tool [label=1]
+}
