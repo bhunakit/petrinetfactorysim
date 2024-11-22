@@ -1,6 +1,25 @@
 # Wood Production Line Simulator
 
-A stochastic Petri net simulation of a wood production line, implementing both theoretical Petri net concepts and Monte Carlo methods for practical analysis.
+A stochastic Petri net simulation of a wood production line, implementing both Petri net concepts and Monte Carlo methods for practical analysis.
+
+## Project Structure
+
+```
+├── app.py                 # Streamlit web application
+├── gridsearch.py          # Parameter optimization
+├── petrinet.py           # Core Petri net implementation
+├── pyproject.toml        # Project dependencies and metadata
+├── README.md             # This file
+├── sim.py               # Stochastic simulation engine
+├── visualize.py         # Visualization components
+├── graphs/              # Generated visualizations
+│   ├── buffer_levels.png
+│   ├── Production.png
+│   └── grid_search_results.csv
+├── tests/               # Test suite
+│   └── test_sim.py     # Simulation tests
+└── __pycache__/        # Python cache files
+```
 
 ## Features
 
@@ -8,7 +27,9 @@ A stochastic Petri net simulation of a wood production line, implementing both t
 - Stochastic simulation of production line dynamics
 - Interactive web interface using Streamlit
 - Real-time visualization of buffer levels and system states 
-- Monte Carlo analysis for performance metrics
+- Monte Carlo analysis for robust performance metrics
+- Parameter grid search optimization
+- Automated test suite
 
 ## Installation
 
@@ -18,41 +39,26 @@ A stochastic Petri net simulation of a wood production line, implementing both t
 pip install -e .
 ```
 
-## Project Structure
+## Running the Application
 
-- `petrinet.py`: Core Petri net implementation
-- `sim.py`: Stochastic simulation engine
-- `visualize.py`: Visualization components
-- `app.py`: Streamlit web application
-- `tests/`: Test suite
-  - `test_sim.py`: System behavior validation
-
-## Testing
-
-Run the test:
-```bash
-python -m pytest tests/test_sim.py -v
-```
-
-The tests validate:
-- Tool availability impact on work rate
-- Processing speed effect on buffer levels  
-- Production rate consistency within bounds
-
-For development:
-```bash
-pip install -e .[dev]
-```
-
-## Running
-
-Start the web interface:
+1. Start the web interface:
 ```bash
 streamlit run app.py
 ```
 
+2. Run parameter optimization search:
+```bash
+python gridsearch.py
+```
+
+3. Run tests:
+```bash
+pytest tests/
+```
+
 ## Usage
 
+### Web Interface
 1. Configure simulation parameters in the sidebar
 2. Click "Run Simulation" to start
 3. View results in the interactive dashboard:
@@ -61,21 +67,29 @@ streamlit run app.py
    - Tool utilization
    - System visualization
 
+### Grid Search
+The `gridsearch.py` script performs parameter optimization across:
+- Production mean times
+- Work mean times
+- Process mean times
+- Tool occupation ratios
+
+Results are saved to `graphs/grid_search_results.csv`.
+
+## Generated Outputs
+
+- `buffer_levels.png`: Time series of buffer occupancy
+- `Production.png`: Petri net visualization
+- `grid_search_results.csv`: Parameter optimization results
+
 ## Technical Details
 
 ### Simulation Parameters
 
 - Production timings: Mean and standard deviation for manufacturing steps
-- Tool availability: Occupation ratio and decay rate (the tool occupation ratio is logarithmically decayed throughout simulation duration to match reality and add stochastic behavior)
+- Tool availability: Occupation ratio and decay rate
 - Buffer capacities: Dynamic monitoring and sizing
 - Processing rates: Configurable for both parallel processing lines
-
-### Analysis Methods
-
-- Stochastic event generation based on normal distributions
-- Monte Carlo simulations for statistical robustness
-- Buffer level tracking and visualization
-- Tool availability analysis
 
 ### Output Metrics
 
@@ -83,4 +97,4 @@ streamlit run app.py
 - Tool work rate when available
 - Tool unavailability statistics
 - Post-processing rates
-- Recommended buffer sizes
+- Recommended buffer sizes with standard deviations
