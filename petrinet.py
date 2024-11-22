@@ -61,9 +61,6 @@ class PetriNet:
         raise ValueError(f"Place '{name}' not found")
 
     def visualize(self):
-        """
-        Create a graphviz visualization of the Petri net.
-        """
         g = graphviz.Digraph(format='png')
 
         for place in self.places:
